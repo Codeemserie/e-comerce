@@ -1,4 +1,4 @@
-// Carrosel Slides
+// JavaScript para o Carrossel
 const slides = document.getElementById('carousel-slides');
 const totalSlides = slides.children.length;
 let currentIndex = 0;

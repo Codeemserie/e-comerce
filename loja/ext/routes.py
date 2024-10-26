@@ -35,7 +35,7 @@ def conta():
         return redirect(url_for('main.home'))
 
 
-# Rota para editar o usuario atual
+
 @main_blueprint.route('/edit_account', methods=['GET', 'POST'])
 @login_required
 def edit_account():
@@ -63,7 +63,7 @@ def edit_account():
         # Se for um GET, renderiza o formulário de edição
         return render_template('edit_conta.html', user=current_user)  # Certifique-se de criar esse template
 
-# Rota para deletar a conta atual
+
 @main_blueprint.route('/delete_account', methods=['POST'])
 @login_required
 def delete_account():
@@ -159,11 +159,10 @@ def register():
 
     return render_template('register.html')
 
-# Rota para a página de administração
 @main_blueprint.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
-    if current_user.is_admin == 1:
+    if current_user.is_admin == 1:  # Comparação correta com inteiro
         products = Products.query.all()
         users = User.query.all()
         return render_template('admin.html', products=products, users=users)
@@ -171,7 +170,7 @@ def admin():
         flash("Usuário não autorizado.", "danger")
         return redirect(url_for("main.conta"))
 
-# Rota admin para adicionar produto
+
 @main_blueprint.route('/add_product', methods=['POST'])
 @login_required
 def add_product():
@@ -209,7 +208,7 @@ def add_product():
     return redirect(url_for('main.admin'))
 
 
-# Rota admin para edição de produto
+
 @main_blueprint.route('/edit_product/<int:product_id>', methods=['GET', 'POST'])
 @login_required
 def edit_product(product_id):
@@ -231,7 +230,7 @@ def edit_product(product_id):
 
     return render_template('edit_product.html', product=product)
 
-# Rota admin par a exclusão de produtos
+
 @main_blueprint.route('/delete_product/<int:product_id>')
 @login_required
 def delete_product(product_id):
@@ -248,7 +247,6 @@ def delete_product(product_id):
 
     return redirect(url_for('main.admin'))
 
-# Rota admin para deletar usuarios
 @main_blueprint.route('/delete_user/<int:user_id>')
 @login_required
 def delete_user(user_id):
@@ -265,16 +263,17 @@ def delete_user(user_id):
 
     return redirect(url_for('main.admin'))
 
-# Rota para barra de pesquisa
+
 @main_blueprint.route('/search')
 def pesquisa():
     query = request.args.get('query', '').strip()
-    page = request.args.get('page', 1, type=int)  # Paginação
+    page = request.args.get('page', 1, type=int)  # Suporte a paginação
     per_page = 10  # Número de resultados por página
 
     results = []
     if query:
         try:
+            # Filtragem case-insensitive e sem duplicações
             results = Products.query.filter(
                 Products.name.ilike(f"%{query}%")
             ).distinct().paginate(page=page, per_page=per_page)
