@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce</title>
+    <meta name="description" content="Produtos com os melhores preços: celulares, notebooks, computadores, acessórios, games, eletrônicos e roupas.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="static/images/bolsa-de-compras.png">
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-red-600">E-commerce</h1>
+            <form action="{{ url_for('main.pesquisa') }}" method="GET" class="flex space-x-2">
+                <input
+                    type="text"
+                    name="query"
+                    placeholder="Buscar produtos..."
+                    value="{{ request.args.get('query', '') }}"
+                    required
+                    class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+                <button
+                    type="submit"
+                    class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-500 transition">
+                    Buscar
+                </button>
+            </form>
+            <ul class="flex space-x-4 items-center">
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('main.conta') }}" class="text-gray-700 hover:text-red-600">Conta</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('main.login') }}" class="text-gray-700 hover:text-red-600">Entrar</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-grow container mx-auto px-4 py-8">
+        <!-- Carrossel -->
+        <div class="relative w-full max-w-4xl mx-auto" id="carousel">
+            <div class="overflow-hidden relative h-64">
+                <div class="flex transition-transform duration-500 ease-in-out" id="carousel-slides">
+                    <div class="w-full flex-shrink-0">
+                        <img src="static/img/slides-carrossel/slide1.jpeg"
+                             class="w-full h-full object-cover"
+                             alt="Ofertas de celulares e eletrônicos">
+                    </div>
+                    <div class="w-full flex-shrink-0">
+                        <img src="static/img/slides-carrossel/slide2.jpeg"
+                             class="w-full h-full object-cover"
+                             alt="Promoções em roupas e acessórios">
+                    </div>
+                    <div class="w-full flex-shrink-0">
+                        <img src="static/img/slides-carrossel/slide3.jpeg"
+                             class="w-full h-full object-cover"
+                             alt="Descontos em notebooks e computadores">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles -->
+            <button
+                id="prevSlide"
+                class="absolute left-0 top-0 h-full px-4 text-white bg-gray-700 bg-opacity-50 hover:bg-opacity-75 transition-colors"
+                aria-label="Slide anterior">
+                &#10094;
+            </button>
+            <button
+                id="nextSlide"
+                class="absolute right-0 top-0 h-full px-4 text-white bg-gray-700 bg-opacity-50 hover:bg-opacity-75 transition-colors"
+                aria-label="Próximo slide">
+                &#10095;
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-4 shadow-inner">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400 text-sm">&copy; 2024 E-commerce. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="static/scripts/slides.js"></script>
+</body>
+</html>

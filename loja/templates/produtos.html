@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-comerce - {{ produtos.name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='images/bolsa-de-compras.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <style>
+        /* Adiciona um padding extra para facilitar o toque em telas pequenas */
+        nav ul li a {
+            padding: 8px 12px;
+        }
+
+        /* Ajusta o tamanho do texto em telas menores */
+        @media (max-width: 640px) {
+            nav ul li a {
+                font-size: 0.875rem; /* 14px */
+            }
+            h1 {
+                font-size: 1.5rem; /* 24px */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-red-600">E-comerce</h1>
+            <ul class="flex space-x-4">
+                <li><a href="{{ url_for('carrinho') }}" class="text-gray-700 hover:text-red-600">Carrinho</a></li>
+                <li><a href="{{ url_for('pedidos') }}" class="text-gray-700 hover:text-red-600">Pedidos</a></li>
+                <li><a href="{{ url_for('index') }}" class="text-gray-700 hover:text-red-600">Produtos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-grow container mx-auto px-4 py-8">
+        <div class="bg-white p-8 shadow-lg rounded-lg">
+            <!-- Exibição dos detalhes do produto -->
+            <h2 class="text-3xl font-bold mb-4 text-red-600">{{ produtos.name }}</h2>
+            <p class="text-lg font-semibold text-gray-700 mb-2">Preço: R$ {{ produtos.price }}</p>
+            <p class="text-gray-700 mb-4">{{ produtos.description }}</p>
+
+            <a href="{{ url_for('carrinho') }}" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded">
+                Adicionar ao Carrinho
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-4 shadow-inner">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2024 E-comerce. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+</body>
+</html>

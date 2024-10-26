@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gerenciamento de Produtos e Usuários</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-red-600">Admin Panel</h1>
+            <ul class="flex space-x-4">
+                <li><a href="/" class="text-gray-700 hover:text-red-600">Página Inicial</a></li>
+                <li><form action="{{ url_for('main.logout') }}" method="POST">
+                        <button type="submit" class="text-gray-700 hover:text-red-600">Sair</button>
+                    </form>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="container mx-auto py-8">
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Seção de Gerenciamento de Produtos -->
+            <section class="bg-white shadow-md p-6 rounded-lg">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Gerenciamento de Produtos</h2>
+                <form action="/add_product" method="POST" enctype="multipart/form-data" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-gray-700">Nome do Produto:</label>
+                        <input type="text" name="name" id="name" class="w-full p-2 border border-gray-300 rounded" required>
+                    </div>
+
+                    <div>
+                        <label for="description" class="block text-gray-700">Descrição:</label>
+                        <input type="text" name="description" id="description" class="w-full p-2 border border-gray-300 rounded" required>
+                    </div>
+
+                    <div>
+                        <label for="price" class="block text-gray-700">Preço:</label>
+                        <input type="number" name="price" id="price" class="w-full p-2 border border-gray-300 rounded" required>
+                    </div>
+
+                    <div>
+                        <label for="image" class="block text-gray-700">Imagem do Produto:</label>
+                        <input type="file" name="image" id="image" class="w-full p-2 border border-gray-300 rounded" accept="image/*" required>
+                    </div>
+
+                    <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Adicionar Produto</button>
+                </form>
+
+                <!-- Lista de Produtos -->
+                <h3 class="text-lg font-semibold text-gray-800 mt-8">Produtos Existentes</h3>
+                <ul class="space-y-4 mt-4">
+                    {% for product in products %}
+                    <li class="bg-gray-50 p-4 shadow-md rounded flex justify-between items-center">
+                        <div>
+                            <h4 class="text-lg font-bold">{{ product.name }}</h4>
+                            <p>{{ product.description }}</p>
+                            <p class="text-gray-600">Preço: R$ {{ product.price }}</p>
+                            <img src="{{ url_for('static', filename='img/products/' + product.image) }}" alt="{{ product.name }}" class="mt-2 w-32 h-32 object-cover">
+                        </div>
+                        <div class="space-x-2">
+                            <a href="/edit_product/{{ product.id }}" class="text-blue-600 hover:underline">Editar</a>
+                            <a href="/delete_product/{{ product.id }}" class="text-red-600 hover:underline">Excluir</a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <!-- Seção de Gerenciamento de Usuários -->
+            <section class="bg-white shadow-md p-6 rounded-lg">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Gerenciamento de Usuários</h2>
+                <h3 class="text-lg font-semibold text-gray-800">Usuários Registrados</h3>
+                <ul class="space-y-4 mt-4">
+                    {% for user in users %}
+                    <li class="bg-gray-50 p-4 shadow-md rounded flex justify-between items-center">
+                        <div>
+                            <h4 class="text-lg font-bold">{{ user.username }}</h4>
+                            <p>{{ user.email }}</p>
+                        </div>
+                        <div class="space-x-2">
+                            <a href="/delete_user/{{ user.id }}" class="text-red-600 hover:underline">Excluir</a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='static/scripts/admin.js') }}"></script>
+</body>
+</html>

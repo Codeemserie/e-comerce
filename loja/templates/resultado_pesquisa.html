@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados da Pesquisa</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="static/images/bolsa-de-compras.png">
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-red-600">E-comerce</h1>
+            <ul class="flex space-x-4">
+                <li><a href="/" class="text-gray-700 hover:text-red-600">Página Inicial</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('main.conta') }}" class="text-gray-700 hover:text-red-600">Conta</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('main.login') }}" class="text-gray-700 hover:text-red-600">Entrar</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mx-auto py-8">
+        <h1 class="text-2xl font-bold mb-4">Resultados da Pesquisa</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for product in results %}
+            <div class="border rounded-lg p-4">
+                <img src="{{ url_for('static', filename='img/products/' + product.image) }}" alt="{{ product.name }}" class="mt-2 w-32 h-32 object-cover">
+                <h2 class="text-xl font-semibold">{{ product.name }}</h2>
+                <p class="text-gray-700">R$ {{ product.price | number_format }}</p>
+                <p class="text-gray-600">{{ product.description }}</p>
+            </div>
+            {% else %}
+            <p class="text-gray-500">Nenhum resultado encontrado.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer class="bg-gray py-4 shadow-inner">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2024 E-comerce. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

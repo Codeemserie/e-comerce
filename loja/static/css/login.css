@@ -1,0 +1,62 @@
+/* Estilo geral do corpo */
+body {
+    background-color: #f0f0f0; /* Cor de fundo suave */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+}
+
+/* Container do formulário de login */
+.login-container {
+    max-width: 400px; /* Largura máxima do container */
+    margin: 100px auto; /* Centraliza o container na tela */
+    padding: 20px; /* Espaçamento interno */
+    background-color: #ffffff; /* Fundo branco para o formulário */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Título do formulário */
+h2 {
+    text-align: center; /* Centraliza o título */
+    color: #333; /* Cor do texto */
+}
+
+/* Estilo dos rótulos dos campos */
+label {
+    display: block; /* Faz com que o rótulo ocupe toda a largura */
+    margin-bottom: 5px; /* Espaçamento abaixo do rótulo */
+    color: #555; /* Cor do texto do rótulo */
+}
+
+/* Estilo dos campos de entrada */
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Largura total do campo */
+    padding: 10px; /* Espaçamento interno do campo */
+    margin-bottom: 15px; /* Espaçamento abaixo do campo */
+    border: 1px solid #ccc; /* Borda cinza */
+    border-radius: 4px; /* Bordas arredondadas */
+}
+
+/* Estilo do botão de login */
+button {
+    width: 100%; /* Largura total do botão */
+    padding: 10px; /* Espaçamento interno do botão */
+    background-color: #007bff; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    border: none; /* Remove a borda padrão */
+    border-radius: 4px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor pointer ao passar o mouse */
+    font-size: 16px; /* Tamanho da fonte do botão */
+}
+
+/* Estilo do botão ao passar o mouse */
+button:hover {
+    background-color: #0056b3; /* Cor de fundo do botão ao passar o mouse */
+}
+
+/* Estilo das mensagens de erro */
+.flash {
+    color: red; /* Cor do texto de erro */
+    text-align: center; /* Centraliza a mensagem */
+    margin-bottom: 15px; /* Espaçamento abaixo da mensagem */
+}
