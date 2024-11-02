@@ -35,7 +35,6 @@ def conta():
         return redirect(url_for('main.home'))
 
 
-
 @main_blueprint.route('/edit_account', methods=['GET', 'POST'])
 @login_required
 def edit_account():
